@@ -1,0 +1,11 @@
+#menuButton{
+    position: absolute;
+    border-radius: 7px;
+    height: 40px;
+    width: 40px;
+    padding: 0px;
+    inset: 3% 0 0% 85%;
+    font-size: 13px;
+    font-weight: bold;
+    z-index: 1000000000000;
+}

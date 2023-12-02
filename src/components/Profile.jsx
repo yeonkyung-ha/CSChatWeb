@@ -8,8 +8,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 
-function Profile() {
+function Profile(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
+  const email = props.getEmail(); //email is the key to find the profile information in databases
   const [name, setName] = useState("");
   const [entryYear, setEntryYear] = useState("");
   const [entrySemester, setEntrySemester] = useState("");

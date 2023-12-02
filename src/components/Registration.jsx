@@ -7,8 +7,9 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function Registration() {
+function Registration(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
+  const memberList = props.getMemberList();
   const [name, setName] = useState("");
   const [entryYear, setEntryYear] = useState("");
   const [entrySemester, setEntrySemester] = useState("");

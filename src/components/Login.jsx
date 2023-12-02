@@ -7,11 +7,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function Login() {
+function Login(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [memberList, setmemberList] = useState([]);
+  const [memberList, setMemberList] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:4646/api/cschat/member')
@@ -24,7 +24,8 @@ function Login() {
       .then(data => {
         console.log('Data received:', data);
         if (typeof data === 'object') {
-          setmemberList(data);
+          setMemberList(data);
+          props.setMemberList(data);
       } else {
         throw new Error('Invalid JSON format');
       }
@@ -45,6 +46,7 @@ function Login() {
       console.log('Failed - Email is', email);
       console.log('Failed - Password is', password);
     }catch(e){
+      props.setEmail(email)
       alert(`Welcome to Chat Web for CS!`);
       console.log('Successed - Email is', email);
       console.log('Successed - Password is', password);

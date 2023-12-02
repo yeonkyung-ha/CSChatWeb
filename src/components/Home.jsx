@@ -41,6 +41,14 @@ function Home() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+      <div id="contentsHome">
+        <div id="instructions">
+          <p>Instructions</p>
+        </div>
+        <div id="contactInformation">
+          <p>Contact Information</p>
+        </div>
+      </div>
     </div>
   );
 }

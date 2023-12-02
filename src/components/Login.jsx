@@ -4,9 +4,13 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function Login() {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div>
@@ -41,6 +45,29 @@ function Login() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+      <div id="contentsLogin">
+        <Form id="logInBox">
+          <Form.Group className="mb-3" id="login_item">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter Email" />
+          </Form.Group>
+          <Form.Group className="mb-3" id="login_item">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Enter Password" />
+          </Form.Group>
+          <Button type="submit" id="loginButton">
+            Login
+          </Button>
+          <div id="tryRegistration">
+            <p id="tryRegistrationMessage">Not a memeber?</p>
+            <Button id="registrationButton">
+              <Link to="/Registration" className="nav-link">
+                Registration
+              </Link>
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

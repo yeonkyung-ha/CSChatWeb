@@ -16,6 +16,43 @@ function Registration(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  async function createAccount() {
+    //create account and profile
+    if (memberList.includes(email)) {
+      console.log(memberList);
+      alert("Already have the account");
+    } 
+    else {
+      const registrationData = {
+        full_name: name,
+        entry_year: entryYear,
+        entry_semester: entrySemester,
+        email: email,
+        password: password,
+      };
+      try {
+        const response = await fetch(
+          "http://localhost:4646/api/cschat/member",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(registrationData),
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(result.message);
+        alert("Success!")
+      } catch (error) {
+        console.log("Error posting data:", error);
+      }
+    }
+  }
+
   return (
     <div>
       <h1>Registration</h1>
@@ -53,19 +90,25 @@ function Registration(props) {
         <Form id="registrationBox">
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Full Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter Full Name" />
+            <Form.Control
+              type="text"
+              placeholder="Enter Full Name"
+              onChange={(e) => setName(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
-            <Form.Label>Entry Year</Form.Label>
+            <Form.Label>Entry Information</Form.Label>
             <Form.Control
               type="number"
               placeholder="Enter Entry Year"
               maxLength="4"
+              onChange={(e) => setEntryYear(e.target.value)}
             />
           </Form.Group>
           <Form.Select
             aria-label="Default select example"
             id="fregistration_item_semester"
+            onChange={(e) => setEntrySemester(e.target.value)}
           >
             <option>Select Semester</option>
             <option value="Spring">Spring</option>
@@ -73,17 +116,25 @@ function Registration(props) {
           </Form.Select>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter Email" />
+            <Form.Control
+              type="email"
+              placeholder="Enter Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Create Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Password" />
+            <Form.Control
+              type="password"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Repeat Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Password" />
+            <Form.Control type="password" placeholder="Enter Password"/>
           </Form.Group>
-          <Button type="submit" id="creatAccountButton">
+          <Button type="button" id="creatAccountButton" onClick={createAccount}>
             Create Account
           </Button>
           <div id="tryLogin">

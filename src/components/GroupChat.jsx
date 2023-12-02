@@ -4,6 +4,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function GroupChat() {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -41,6 +43,17 @@ function GroupChat() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+      <div id="contentsGroupChat">
+        <div id="chatHistory"></div>
+        <Form id="ChatBox">
+          <Form.Group className="mb-3" id="groupChat_item_message">
+            <Form.Control type="text" placeholder="Type message"></Form.Control>
+          </Form.Group>
+          <Button type="submit" id="sendButton">
+            Send
+          </Button>
+        </Form>
+      </div>
     </div>
   );
 }

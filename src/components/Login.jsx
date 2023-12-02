@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -11,6 +11,45 @@ function Login() {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [memberList, setmemberList] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4646/api/cschat/member')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Data received:', data);
+        if (typeof data === 'object') {
+          setmemberList(data);
+      } else {
+        throw new Error('Invalid JSON format');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching course list:');
+    });
+  }, []);
+
+  function checkAccount(){
+    try{
+      memberList.forEach(item => {
+        if (item.email == email && item.password == password){
+          throw new Error();
+        }
+      });
+      alert("Login failed: invalid credentials");
+      console.log('Failed - Email is', email);
+      console.log('Failed - Password is', password);
+    }catch(e){
+      alert(`Welcome to Chat Web for CS!`);
+      console.log('Successed - Email is', email);
+      console.log('Successed - Password is', password);
+    }
+  }
 
   return (
     <div>
@@ -49,13 +88,13 @@ function Login() {
         <Form id="logInBox">
           <Form.Group className="mb-3" id="login_item">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter Email" />
+            <Form.Control type="email" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)}/>
           </Form.Group>
           <Form.Group className="mb-3" id="login_item">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Password" />
+            <Form.Control type="password" placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)}/>
           </Form.Group>
-          <Button type="submit" id="loginButton">
+          <Button type="button" id="loginButton" onClick={checkAccount}>
             Login
           </Button>
           <div id="tryRegistration">

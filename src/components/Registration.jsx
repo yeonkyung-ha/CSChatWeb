@@ -15,14 +15,35 @@ function Registration(props) {
   const [entrySemester, setEntrySemester] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [agree, setAgree] = useState(false);
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
 
   async function createAccount() {
+    const isFormValid =
+      name.length > 0 &&
+      entryYear.length === 4 &&
+      entrySemester.length > 0 &&
+      email.includes("@stonybrook.edu") &&
+      password.length > 0 &&
+      password === confirmPassword &&
+      agree === true;
+
     //create account and profile
-    if (memberList.includes(email)) {
-      console.log(memberList);
+    if (!isFormValid) {
+      alert("Please provide valid information");
+    } else if (memberList.includes(email)) {
       alert("Already have the account");
-    } 
-    else {
+    } else {
       const registrationData = {
         full_name: name,
         entry_year: entryYear,
@@ -31,6 +52,7 @@ function Registration(props) {
         password: password,
       };
       try {
+        alert("Registration is sucessed!");
         const response = await fetch(
           "http://localhost:4646/api/cschat/member",
           {
@@ -46,7 +68,6 @@ function Registration(props) {
         }
         const result = await response.json();
         console.log(result.message);
-        alert("Success!")
       } catch (error) {
         console.log("Error posting data:", error);
       }
@@ -87,40 +108,62 @@ function Registration(props) {
         </Container>
       </Navbar>
       <div id="contentsRegistration">
-        <Form id="registrationBox">
+        <Form
+          id="registrationBox"
+          validated={validated}
+          onSubmit={handleSubmit}
+        >
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter Full Name"
               onChange={(e) => setName(e.target.value)}
+              isInvalid={name.length == 0}
             />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid name.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
-            <Form.Label>Entry Information</Form.Label>
+            <Form.Label>Entry Year</Form.Label>
             <Form.Control
               type="number"
               placeholder="Enter Entry Year"
-              maxLength="4"
               onChange={(e) => setEntryYear(e.target.value)}
+              isInvalid={entryYear.length !== 4}
             />
+            <Form.Control.Feedback type="invalid">
+              Please provide a year.
+            </Form.Control.Feedback>
           </Form.Group>
-          <Form.Select
-            aria-label="Default select example"
-            id="fregistration_item_semester"
-            onChange={(e) => setEntrySemester(e.target.value)}
-          >
-            <option>Select Semester</option>
-            <option value="Spring">Spring</option>
-            <option value="Fall">Fall</option>
-          </Form.Select>
+          <Form.Group className="mb-3" id="registration_item">
+            <Form.Label>Entry Semester</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              id="fregistration_item_semester"
+              onChange={(e) => setEntrySemester(e.target.value)}
+              isInvalid={entrySemester.length == 0}
+            >
+              <option>Select Semester</option>
+              <option value="Spring">Spring</option>
+              <option value="Fall">Fall</option>
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              Please select an option.
+            </Form.Control.Feedback>
+          </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter Email"
               onChange={(e) => setEmail(e.target.value)}
+              isInvalid={!email.includes("@stonybrook.edu")}
             />
+            <Form.Control.Feedback type="invalid">
+              Only Stony Brook email is allowed.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Create Password</Form.Label>
@@ -128,13 +171,34 @@ function Registration(props) {
               type="password"
               placeholder="Enter Password"
               onChange={(e) => setPassword(e.target.value)}
+              isInvalid={password.length == 0}
             />
+            <Form.Control.Feedback type="invalid">
+              Please provide a password.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Label>Repeat Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Password"/>
+            <Form.Control
+              type="password"
+              placeholder="Enter Password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              isInvalid={confirmPassword !== password}
+            />
+            <Form.Control.Feedback type="invalid">
+              Password do not match.
+            </Form.Control.Feedback>
           </Form.Group>
-          <Button type="button" id="creatAccountButton" onClick={createAccount}>
+          <Form.Group className="mb-3" id="registration_item">
+            <Form.Check
+              isInvalid={agree === false}
+              onClick={() => setAgree(!agree)}
+              label="I accept the Terms of Use & Privacy Policy."
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
+            />
+          </Form.Group>
+          <Button type="submit" id="creatAccountButton" onClick={createAccount}>
             Create Account
           </Button>
           <div id="tryLogin">

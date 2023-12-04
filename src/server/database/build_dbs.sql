@@ -43,5 +43,19 @@ VALUES
 CREATE TABLE IF NOT EXISTS groupchat(
     id INT AUTO_INCREMENT PRIMARY KEY,
     courses VARCHAR(6) UNIQUE
-    -- need to add more elements or create new table
 );
+
+INSERT INTO groupchat (courses) VALUES ('CSE101');
+INSERT INTO groupchat (courses) VALUES ('CSE114');
+INSERT INTO groupchat (courses) VALUES ('CSE214');
+INSERT INTO groupchat (courses) VALUES ('CSE215');
+INSERT INTO groupchat (courses) VALUES ('CSE216');
+INSERT INTO groupchat (courses) VALUES ('CSE220');
+INSERT INTO groupchat (courses) VALUES ('CSE300');
+INSERT INTO groupchat (courses) VALUES ('CSE303');
+INSERT INTO groupchat (courses) VALUES ('CSE310');
+INSERT INTO groupchat (courses) VALUES ('CSE312');
+INSERT INTO groupchat (courses) VALUES ('CSE316');
+INSERT INTO groupchat (courses) VALUES ('CSE320');
+INSERT INTO groupchat (courses) VALUES ('CSE373');
+INSERT INTO groupchat (courses) VALUES ('CSE416');

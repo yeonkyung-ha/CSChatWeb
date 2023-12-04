@@ -7,6 +7,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
+import logoImage from "../images/logo.png"; 
+import '../index.css';
 
 function Profile(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -15,12 +17,30 @@ function Profile(props) {
   const [entryYear, setEntryYear] = useState("");
   const [entrySemester, setEntrySemester] = useState("");
   const [image, setImage] = useState("./src/images/profile_image.png");
-  const [message, setMessage] = useState("Welcome");
+  const [message, setMessage] = useState("Hello");
   const [courses, setCourses] = useState([]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; 
+    
+    if (file && file.type.match('image.*')) { 
+      const reader = new FileReader();
+      
+      reader.onload = (readEvent) => { 
+        setImage(readEvent.target.result); 
+      };
+      
+      reader.readAsDataURL(file); 
+    } 
+    else {
+      setImage(null); 
+    }
+  };
 
   return (
     <div>
       <h1>Profile</h1>
+      <img src={logoImage} alt="Logo" id="logo" /> 
       <Navbar key="md" expand="md">
         <Container fluid>
           <Navbar.Toggle
@@ -59,7 +79,7 @@ function Profile(props) {
             {entrySemester}
           </div>
           <Form.Group className="mb-3" id="profile_item_image">
-            <Form.Control type="file"></Form.Control>
+            <Form.Control type="file" onChange={handleImageChange}></Form.Control>
             <Image src={image} roundedCircle width="100" height="100"></Image>
           </Form.Group>
           <Form.Group className="mb-3" id="profile_item_message">
@@ -71,6 +91,7 @@ function Profile(props) {
             <Form.Control type="text" placeholder={courses}></Form.Control>
           </Form.Group>
         </Form>
+        {/* chatting room button in id (courseBox) */}
         <div id="courseBox"></div>
         <Button type="button" id="saveButton">
           Save

@@ -6,6 +6,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import logoImage from "../images/logo.png"; 
+import '../index.css';
 
 function Registration(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -77,6 +79,7 @@ function Registration(props) {
   return (
     <div>
       <h1>Registration</h1>
+      <img src={logoImage} alt="Logo" id="logo" /> 
       <Navbar key="md" expand="md">
         <Container fluid>
           <Navbar.Toggle

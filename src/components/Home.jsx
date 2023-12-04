@@ -4,6 +4,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import '../index.css';
+import logoImage from "../images/logo.png"; 
 
 function Home() {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -11,6 +13,7 @@ function Home() {
   return (
     <div>
       <h1>Home</h1>
+      <img src={logoImage} alt="Logo" id="logo" /> 
       <Navbar key="md" expand="md">
         <Container fluid>
           <Navbar.Toggle
@@ -43,10 +46,11 @@ function Home() {
       </Navbar>
       <div id="contentsHome">
         <div id="instructions">
-          <p>Instructions</p>
+          <p>Welcome to the Chatting app for the CS students in SUNY KOREA.</p>
         </div>
         <div id="contactInformation">
-          <p>Contact Information</p>
+          <p>Contact Information & Brief introduction.</p>
+          <p>This Webpage is provided only the available cousrses in SUNY KOREA.</p>
         </div>
       </div>
     </div>

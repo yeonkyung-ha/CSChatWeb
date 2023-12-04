@@ -9,3 +9,441 @@
     font-weight: bold;
     z-index: 1000000000000;
 }
+/* University Logo */
+#logo {
+    position: absolute;
+    top: 3px;
+    left: 20px;
+    height: 60px;
+}
+  
+.navbar {
+    padding-top: 90px;
+}
+
+/* Home.jsx */
+
+#contentsHome {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+    font-size: 2.5rem;
+}
+ 
+.navbar {
+    padding-top: 70px;
+    background-color: #0056b3;
+    border-bottom: 4px solid #004494;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#menuButton {
+    background-color: #eaeff2;
+    color: #0056b3;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+  
+#menuButton:hover {
+    background-color: #d8e2e7;
+}
+  
+.nav-link {
+color: #007bff;
+}
+  
+#instructions, #contactInformation {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#contactInformation {
+    background-color: #e9ecef;
+}
+  
+@media (max-width: 768px) {
+    #contentsHome {
+        flex-direction: column;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+
+    #menuButton {
+        font-size: 1rem;
+    }
+}
+
+/* Login.jsx */
+
+#contentsLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+  
+#logInBox {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#logInBox .form-group {
+    margin-bottom: 15px;
+}
+
+#logInBox .form-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#logInBox .form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 40px;
+}
+
+#loginButton {
+    width: 100%;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loginButton:hover {
+    background-color: #004494;
+}
+
+#tryRegistration {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#tryRegistrationMessage {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#registrationButton {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#registrationButton:hover {
+    background-color: #218838;
+}
+
+.nav-link {
+    color: #0056b3;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #004494;
+}
+
+@media (max-width: 768px) {
+    #logInBox {
+        margin: 20px;
+        padding: 20px;
+    }
+}
+
+/* Registration.jsx */
+
+#contentsRegistration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+  
+#registrationBox {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#registrationBox .mb-3 {
+    margin-bottom: 15px;
+}
+
+#registrationBox .form-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#registrationBox .form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 40px;
+}
+
+#creatAccountButton {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#creatAccountButton:hover {
+    background-color: #218838;
+}
+
+#tryLogin {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#tryLoginMessage {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#tryLoginButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#tryLoginButton:hover {
+    background-color: #0069d9;
+}
+
+.form-check .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.form-check .form-check-label {
+    vertical-align: middle;
+}
+
+.form-check .invalid-feedback {
+    display: block;
+}
+
+.nav-link {
+    color: #0056b3;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #004494;
+}
+  
+@media (max-width: 768px) {
+    #registrationBox {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .navbar {
+        padding: 10px;
+}
+}
+
+/* Profile.jsx */
+
+#contentsProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+  
+#profileBox {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#profileBox div, #profileBox .form-group {
+    margin-bottom: 15px;
+}
+
+#profile_item_image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#profile_item_image .form-control-file {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#profile_item_message, #profile_item_courses {
+    width: 100%;
+}
+  
+#profile_item_message .form-control, #profile_item_courses .form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#saveButton {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#saveButton:hover {
+    background-color: #004494;
+}
+
+#courseBox {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+@media (max-width: 768px) {
+    #profileBox, #courseBox {
+        width: 90%;
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+}
+  
+/* GroupChat.jsx */
+
+#contentsGroupChat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+}
+  
+#chatHistory {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+#ChatBox {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    gap: 10px;
+}
+
+#ChatBox .form-group {
+    flex-grow: 1;
+}
+
+#ChatBox .form-control {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+}
+  
+#sendButton {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+#sendButton:hover {
+    background-color: #004494;
+}
+
+@media (max-width: 768px) {
+    #contentsGroupChat {
+        width: 100%;
+        margin: 10px;
+    }
+
+    #chatHistory {
+        height: 400px;
+    }
+
+    #ChatBox {
+        flex-direction: column;
+    }
+
+    #sendButton {
+        width: 100%;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+}

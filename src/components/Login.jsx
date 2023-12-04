@@ -6,6 +6,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import '../index.css';
+import logoImage from "../images/logo.png"; 
 
 function Login(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -56,6 +58,7 @@ function Login(props) {
   return (
     <div>
       <h1>Login</h1>
+      <img src={logoImage} alt="Logo" id="logo" /> 
       <Navbar key="md" expand="md">
         <Container fluid>
           <Navbar.Toggle

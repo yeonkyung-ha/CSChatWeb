@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS groupchat(
     courses VARCHAR(6) UNIQUE
 );
 
+
 INSERT INTO groupchat (courses) VALUES ('CSE101');
 INSERT INTO groupchat (courses) VALUES ('CSE114');
 INSERT INTO groupchat (courses) VALUES ('CSE214');
@@ -59,3 +60,4 @@ INSERT INTO groupchat (courses) VALUES ('CSE316');
 INSERT INTO groupchat (courses) VALUES ('CSE320');
 INSERT INTO groupchat (courses) VALUES ('CSE373');
 INSERT INTO groupchat (courses) VALUES ('CSE416');
+

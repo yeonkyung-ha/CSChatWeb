@@ -9,6 +9,7 @@
     font-weight: bold;
     z-index: 1000000000000;
 }
+
 /* University Logo */
 #logo {
     position: absolute;
@@ -16,9 +17,15 @@
     left: 20px;
     height: 60px;
 }
-  
+
 .navbar {
     padding-top: 90px;
+}
+
+@media (max-width: 971px) {
+    #logo {
+        display: none;
+    }
 }
 
 /* Home.jsx */
@@ -33,8 +40,8 @@
 h1 {
     text-align: center;
     color: #333;
-    margin-top: 20px;
-    font-size: 2.5rem;
+    margin: 0;
+    font-size: 2rem;
 }
  
 .navbar {
@@ -375,6 +382,8 @@ color: #007bff;
   
 /* GroupChat.jsx */
 
+
+
 #contentsGroupChat {
     display: flex;
     flex-direction: column;
@@ -426,6 +435,11 @@ color: #007bff;
 }
 
 @media (max-width: 768px) {
+
+    h1 {
+        font-size: 1.5rem; 
+      }
+    
     #contentsGroupChat {
         width: 100%;
         margin: 10px;
@@ -446,4 +460,11 @@ color: #007bff;
     .navbar {
         padding: 10px;
     }
+
 }
+
+@media (max-width: 480px) {
+    h1 {
+      font-size: 1.25rem; 
+    }
+  }

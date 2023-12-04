@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 const dbConfig = {
   host: "localhost",
   user: "root",
-  password: "password",
+  password: "alexShim13",
   database: "cschat",
   port: 3306,
 };

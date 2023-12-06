@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import '../index.css';
 import logoImage from "../images/logo.png"; 
+import hashutil from './common/hashutil.js';
 
 function Login(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -16,7 +17,7 @@ function Login(props) {
   const [memberList, setMemberList] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/cschat/member')
+    fetch('http://localhost:4646/api/cschat/member')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -40,7 +41,7 @@ function Login(props) {
   function checkAccount(){
     try{
       memberList.forEach(item => {
-        if (item.email == email && item.password == password){
+        if (item.email == email && item.password == hashutil(item.fullName, password)){
           throw new Error();
         }
       });

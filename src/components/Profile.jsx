@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import logoImage from "../images/logo.png"; 
 import '../index.css';
+import axios from 'axios';
 const defaultImage = "./src/images/Default.png"; 
 
 function Profile(props) {
@@ -19,27 +20,48 @@ function Profile(props) {
   const [image, setImage] = useState("./src/images/profile_image.png");
   const [message, setMessage] = useState("Hello");
   const [courses, setCourses] = useState([]);
+  const [validCourses, setValidCourses] = useState([]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]; 
-    
-    if (file && file.type.match('image.*')) { 
-      const reader = new FileReader();
-      
-      reader.onload = (readEvent) => { 
-        props.setProfileImage(readEvent.target.result); 
-      };
-      
-      reader.readAsDataURL(file); 
-    } 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.match('image.*')) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'pezr9rpl'); 
+  
+      try {
+        const response = await axios.post('https://api.cloudinary.com/v1_1/dbf7osnq6/image/upload', formData); 
+        const imageUrl = response.data.secure_url;
+        props.setProfileImage(imageUrl);
+      } catch (error) {
+        console.error("Error uploading the image:", error);
+      }
+    }
     else {
-      props.setProfileImage(null); 
+      console.log("Invalid file type");
     }
   };
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/cschat/groupchat/${courses}');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setValidCourses(data);
+      } catch (error) {
+        console.error("Failed to fetch courses: ", error.message);
+      }
+    };
+    fetchCourses();
+  }, []);
+
   const handleCoursesChange = (e) => {
     const coursesArray = e.target.value.split(',').map(course => course.trim());
-    setCourses(coursesArray);
+    const filteredCourses = coursesArray.filter(course => validCourses.includes(course));
+    setCourses(filteredCourses);
   };
 
   const navigate = useNavigate();
@@ -52,25 +74,62 @@ function Profile(props) {
   };
 
   useEffect(() => {
-    const email = props.getEmail(); 
-
-    fetch(`http://localhost:8080/api/cschat/member/${email}`)
-      .then(response => {
+    const fetchProfileData = async () => {
+      try {
+        const email = props.getEmail(); 
+        console.log("Fetching profile for email:", email);
+  
+        const response = await fetch(`http://localhost:8080/api/cschat/member/${email}`);
+  
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then(data => {
+  
+        const data = await response.json();
+        console.log("Profile data received:", data);
         setName(data.full_name);
         setEntryYear(data.entry_year);
         setEntrySemester(data.entry_semester);
-      })
-      .catch(error => {
-        console.error('Error fetching user profile:', error);
-      });
+      } catch (error) {
+        console.error('Error fetching user profile:', error.message);
+      }
+    };
+  
+    fetchProfileData();
   }, [props]);
+  
+  const saveProfile = async () => {
+    try {
+  
 
+      const response = await fetch('http://localhost:8080/api/cschat/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: props.getEmail(),
+          message: props.message,
+          courses: courses,
+        }),
+      });
+
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log(data)
+      console.log("Profile saved successfully:", data)
+    } 
+    
+    catch (error) {
+      console.error("Failed to save profile:", error.message);
+    }
+  };
+  
+  
   return (
     <div>
       <h1>Profile</h1>
@@ -126,14 +185,14 @@ function Profile(props) {
           <div>
             <h3>My Courses</h3>
               {courses.map((course, index) => (
-                <Button key={index} onClick={() => handleCourseClick(course)}>
+                validCourses.includes(course) && <Button key={index} onClick={() => handleCourseClick(course)}>
                   {course}
                 </Button>
               ))}
           </div>
         </Form>
         <div id="courseBox"></div>
-        <Button type="button" id="saveButton">
+        <Button type="button" id="saveButton" onClick={saveProfile}>
           Save
         </Button>
       </div>

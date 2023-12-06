@@ -17,29 +17,60 @@ function GroupChat(props) {
   const [chatHistory, setChatHistory] = useState([]);
   const location = useLocation();
   const profileName = location.state?.profileName;
-  
+
   useEffect(() => {
-    console.log(`Profile Name: ${profileName}`); 
-  }, [profileName]);
+    console.log(location.state); 
+  }, []);
 
-  
-  const handleSendMessage = (event) => {
+
+  const handleSendMessage = async (event) => {
     event.preventDefault(); 
-
+  
     if (!profileName) {
       console.error('Sender name is not defined.');
       return;
     }
-
+  
     const newMessage = {
       text: currentMessage,
       senderName: profileName, 
     };
+  
+    setChatHistory(prevChatHistory => {
+      const updatedChatHistory = [...prevChatHistory, newMessage];
+      if (updatedChatHistory.length > 15) {
+        updatedChatHistory.shift(); 
+      }
+      return updatedChatHistory;
+    });
+    setCurrentMessage(""); 
+  
+    const encodedCourse = encodeURIComponent(course);
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/cschat/groupchat/${encodedCourse}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          profileName, 
+          course: encodedCourse, 
+          message: newMessage.text, 
+        }),
+      });
 
-    setChatHistory([...chatHistory, newMessage]);
-    setCurrentMessage("");
+      if (response.ok) {
+        console.log('Message sent successfully');
+      } 
+      else {
+        throw new Error(`Failed to send message, server responded with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
-
+  
   return (
     <div>
       <h1> Group Chat for {decodedCourse} </h1>

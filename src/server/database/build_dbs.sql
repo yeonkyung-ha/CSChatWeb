@@ -42,9 +42,11 @@ VALUES
 
 CREATE TABLE IF NOT EXISTS groupchat(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    courses VARCHAR(6) UNIQUE
+    courses VARCHAR(6) UNIQUE,
+    students VARCHAR(256)
 );
 
+ALTER TABLE groupchat ADD COLUMN message TEXT;
 
 INSERT INTO groupchat (courses) VALUES ('CSE101');
 INSERT INTO groupchat (courses) VALUES ('CSE114');
@@ -60,4 +62,8 @@ INSERT INTO groupchat (courses) VALUES ('CSE316');
 INSERT INTO groupchat (courses) VALUES ('CSE320');
 INSERT INTO groupchat (courses) VALUES ('CSE373');
 INSERT INTO groupchat (courses) VALUES ('CSE416');
+ALTER TABLE groupchat MODIFY COLUMN message JSON;
+INSERT INTO groupchat (courses, message)
+VALUES ('CSE101', '[]'); 
 
+UPDATE groupchat SET message = '[]' WHERE JSON_VALID(message) = 0;

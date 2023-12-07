@@ -45,7 +45,7 @@ function Profile(props) {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/cschat/groupchat/${courses}');
+        const response = await fetch('http://localhost:4646/api/cschat/groupchat/${courses}');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -81,7 +81,7 @@ function Profile(props) {
         const email = props.getEmail(); 
         console.log("Fetching profile for email:", email);
   
-        const response = await fetch(`http://localhost:8080/api/cschat/member/${email}`);
+        const response = await fetch(`http://localhost:4646/api/cschat/member/${email}`);
   
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -101,11 +101,8 @@ function Profile(props) {
   }, [props]);
   
   const saveProfile = async () => {
-    console.log(courses)
     try {
-  
-
-      const response = await fetch('http://localhost:8080/api/cschat/profile', {
+      const response = await fetch('http://localhost:4646/api/cschat/profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -179,7 +176,7 @@ function Profile(props) {
           </Form.Group>
           <Form.Group className="mb-3" id="profile_item_message">
             <Form.Label>Message</Form.Label>
-            <Form.Control type="text" value={props.message} onChange={handleMessageChange} placeholder="Enter a message" /> 
+            <Form.Control type="text" value={props.message} onChange={handleMessageChange} placeholder="Enter a message"/> 
             </Form.Group>
           <Form.Group className="mb-3" id="profile_item_courses">
             <Form.Label>Courses</Form.Label>

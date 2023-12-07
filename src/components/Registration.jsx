@@ -57,7 +57,7 @@ function Registration(props) {
       try {
         alert("Registration is sucessed!");
         const response = await fetch(
-          "http://localhost:8080/api/cschat/member",
+          "http://localhost:4646/api/cschat/member",
           {
             method: "POST",
             headers: {

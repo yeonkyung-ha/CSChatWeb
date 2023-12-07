@@ -150,7 +150,7 @@ app.post('/api/cschat/groupchat/:course', async (req, res) => {
 });
 
 // Start the server
-const port = 8080;
+const port = 4646;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

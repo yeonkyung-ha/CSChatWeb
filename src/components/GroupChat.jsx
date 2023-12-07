@@ -19,7 +19,7 @@ function GroupChat(props) {
   const profileName = location.state?.profileName;
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/cschat/groupchat/wow/" + decodeURIComponent(course))
+    fetch("http://localhost:4646/api/cschat/groupchat/wow/" + decodeURIComponent(course))
       .then((res) => {return res.json()})
       .then((res) => {setChatHistory(res)})
   }, []);
@@ -49,7 +49,7 @@ function GroupChat(props) {
     const encodedCourse = encodeURIComponent(course);
   
     try {
-      const response = await fetch(`http://localhost:8080/api/cschat/groupchat/${encodedCourse}`, {
+      const response = await fetch(`http://localhost:4646/api/cschat/groupchat/${encodedCourse}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

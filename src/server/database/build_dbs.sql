@@ -1,3 +1,5 @@
+-- change
+
 CREATE DATABASE IF NOT EXISTS cschat;
 
 USE cschat;

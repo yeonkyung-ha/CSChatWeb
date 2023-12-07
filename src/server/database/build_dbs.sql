@@ -21,7 +21,7 @@ VALUES
         "2021",
         "Spring",
         "ha.yeonkyung@stonybrook.edu",
-        ""
+        "9d849787d54dce38d35f366025f76e22e03df7ce05b305e61551585c0ddbaa7"
     );
 
 CREATE TABLE IF NOT EXISTS profile(

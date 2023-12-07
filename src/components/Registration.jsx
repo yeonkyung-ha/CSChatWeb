@@ -6,8 +6,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import logoImage from "../images/logo.png"; 
-import '../index.css';
+import logoImage from "../images/logo.png";
+import "../index.css";
+import hashutil from "./common/hashutil.js";
 
 function Registration(props) {
   const [changeMenuButton, setChangeMenuButton] = useState(false);
@@ -51,7 +52,7 @@ function Registration(props) {
         entry_year: entryYear,
         entry_semester: entrySemester,
         email: email,
-        password: password,
+        password: hashutil(name, password),
       };
       try {
         alert("Registration is sucessed!");
@@ -79,7 +80,7 @@ function Registration(props) {
   return (
     <div>
       <h1>Registration</h1>
-      <img src={logoImage} alt="Logo" id="logo" /> 
+      <img src={logoImage} alt="Logo" id="logo" />
       <Navbar key="md" expand="md">
         <Container fluid>
           <Navbar.Toggle
@@ -194,11 +195,9 @@ function Registration(props) {
           </Form.Group>
           <Form.Group className="mb-3" id="registration_item">
             <Form.Check
-              isInvalid={agree === false}
+              isInvalid={agree == false}
               onClick={() => setAgree(!agree)}
               label="I accept the Terms of Use & Privacy Policy."
-              feedback="You must agree before submitting."
-              feedbackType="invalid"
             />
           </Form.Group>
           <Button type="submit" id="creatAccountButton" onClick={createAccount}>

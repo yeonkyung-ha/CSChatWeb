@@ -17,7 +17,7 @@ function Login(props) {
   const [memberList, setMemberList] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4646/api/cschat/member')
+    fetch('http://localhost:8080/api/cschat/member')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

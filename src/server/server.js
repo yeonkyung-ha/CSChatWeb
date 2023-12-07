@@ -102,6 +102,19 @@ app.post('/api/cschat/profile', async (req, res) => {
   }
 });
 
+app.get('/api/cschat/groupchat/wow/:course', async (req, res) => {
+  const course = req.params.course;
+  const { profileName, message } = req.body;
+
+  try {
+    const [rows] = await connection.promise().query('SELECT message FROM groupchat WHERE courses = ?', [course]);
+    const message = rows[0].message;
+    console.log(message)
+    res.status(200).json(message);
+  } catch {
+    res.status(500).send("Error on loading");
+  }
+});
 app.post('/api/cschat/groupchat/:course', async (req, res) => {
   const course = req.params.course;
   const { profileName, message } = req.body;
@@ -113,39 +126,21 @@ app.post('/api/cschat/groupchat/:course', async (req, res) => {
 
   try {
     const [rows] = await connection.promise().query('SELECT message FROM groupchat WHERE courses = ?', [course]);
+    [{}]
+    
+    // let messagesList = rows && rows.length > 0 && rows[0].message ? JSON.parse(rows[0].message) : [];
+    let messagesList = rows[0].message
+    const newMessageObject = { senderName: profileName, text: message };
+    messagesList.push(newMessageObject);
 
-    let currentMessages = [];
-    let first = rows[0].message;
-    console.log('Attempting to parse message:', first);
-    console.log(typeof first);
-    // console.log('JSON이어야만 한다', typeof JSON.parse(first));
-
-    if (rows.length > 0 && typeof rows[0].message === 'string') {
-      try {
-        currentMessages = JSON.parse(rows[0].message);
-      } 
-      catch (error) {
-        console.error(`Invalid JSON format in database for course ${course}:`, error);
-        return res.status(500).send('Invalid JSON format in database');
-      }
-    } 
-
-    console.log(`Fetched messages for course ${course}:`, currentMessages);
-
-    currentMessages.push({
-      senderName: profileName,
-      text: message,
-    });
-    console.log('Attempting to parse message:', rows[0].message);
-
-    if (currentMessages.length > 15) {
-      currentMessages.shift(); 
+    while (messagesList.length > 15) {
+      messagesList.shift();
     }
 
-    const updatedMessages = JSON.stringify(currentMessages);
-    console.log(`Updated messages for course ${course}:`, updatedMessages);
+    const updatedMessagesJSON = JSON.stringify(messagesList);
 
-    await connection.promise().query('UPDATE groupchat SET message = ? WHERE courses = ?', [updatedMessages, course]);
+    await connection.promise().query('UPDATE groupchat SET message = ? WHERE courses = ?', [updatedMessagesJSON, course]);
+
     console.log('Message added successfully');
     res.status(200).send('Message added successfully');
   } catch (error) {
@@ -154,10 +149,8 @@ app.post('/api/cschat/groupchat/:course', async (req, res) => {
   }
 });
 
-
 // Start the server
 const port = 8080;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-//  Change

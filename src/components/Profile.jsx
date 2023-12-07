@@ -60,6 +60,8 @@ function Profile(props) {
 
   const handleCoursesChange = (e) => {
     const coursesArray = e.target.value.split(',').map(course => course.trim());
+    console.log(coursesArray)
+    console.log(validCourses)
     const filteredCourses = coursesArray.filter(course => validCourses.includes(course));
     setCourses(filteredCourses);
   };
@@ -99,6 +101,7 @@ function Profile(props) {
   }, [props]);
   
   const saveProfile = async () => {
+    console.log(courses)
     try {
   
 
@@ -200,5 +203,3 @@ function Profile(props) {
   );
 }
 export default Profile;
-
-// Change

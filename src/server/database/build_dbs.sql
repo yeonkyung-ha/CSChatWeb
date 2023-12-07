@@ -67,5 +67,5 @@ INSERT INTO groupchat (courses) VALUES ('CSE416');
 ALTER TABLE groupchat MODIFY COLUMN message JSON;
 INSERT INTO groupchat (courses, message)
 VALUES ('CSE101', '[]'); 
-
+set SQL_SAFE_UPDATES = 0;  # disable safe mode
 UPDATE groupchat SET message = '[]' WHERE JSON_VALID(message) = 0;

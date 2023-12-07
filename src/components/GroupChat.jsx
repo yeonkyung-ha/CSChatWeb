@@ -19,9 +19,10 @@ function GroupChat(props) {
   const profileName = location.state?.profileName;
 
   useEffect(() => {
-    console.log(location.state); 
+    fetch("http://localhost:8080/api/cschat/groupchat/wow/" + decodeURIComponent(course))
+      .then((res) => {return res.json()})
+      .then((res) => {setChatHistory(res)})
   }, []);
-
 
   const handleSendMessage = async (event) => {
     event.preventDefault(); 
@@ -125,4 +126,3 @@ function GroupChat(props) {
   );
 }
 export default GroupChat;
-// Change
